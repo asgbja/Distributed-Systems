@@ -10,6 +10,7 @@ public class DsSys_Assignment2_Server {
         //Endpoint ep = 
         Endpoint.publish("http://localhost:8181/TXLFlightService", new TXLFlightService());
         Endpoint.publish("http://localhost:8181/HotelHiltonService", new HotelHiltonService());
+        Endpoint.publish("http://localhost:8181/HotelHolidayInnService", new HotelHolidayInnService());
       //  JOptionPane.showMessageDialog( null, "Stop server" );
       //  ep.stop();
     }

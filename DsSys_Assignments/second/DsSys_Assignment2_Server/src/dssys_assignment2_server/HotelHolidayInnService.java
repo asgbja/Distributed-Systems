@@ -7,23 +7,24 @@ import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 
-@WebService(name = "HotelHiltonPort", portName = "HotelHiltonBinding",
-        serviceName = "HotelHilton", targetNamespace = "HotelHilton")
+@WebService(name = "HotelHolidayInnPort", portName = "HotelHolidayInnBinding",
+        serviceName = "HotelHolidayInn", targetNamespace = "HotelHolidayInn")
 @SOAPBinding(style = SOAPBinding.Style.RPC)
-public class HotelHiltonService {
+public class HotelHolidayInnService {
 
     private final HashMap<String, Integer> pricesForDestinantion;
 
-    public HotelHiltonService() {
+    public HotelHolidayInnService() {
         pricesForDestinantion = new HashMap<>();
-        pricesForDestinantion.put("FRA", 745);
-        pricesForDestinantion.put("MUC", 450);
+        pricesForDestinantion.put("FRA", -1);
+        pricesForDestinantion.put("MUC", 120);
         pricesForDestinantion.put("STR", 340);
     }
 
-    @WebMethod(operationName = "HotelHiltoncalc")
-    @WebResult(name = "HotelHiltonResponse")
+    @WebMethod(operationName = "HotelHolidayInncalc")
+    @WebResult(name = "HotelHolidayInn")
     public int HotelHiltonPrice(@WebParam(name = "GCDRequest_paramA") String paramA) {
         return pricesForDestinantion.get(paramA);
     }
+
 }

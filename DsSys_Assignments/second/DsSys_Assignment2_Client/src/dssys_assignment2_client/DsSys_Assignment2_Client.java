@@ -1,8 +1,8 @@
 package dssys_assignment2_client;
 
 import TXLFlightService.*;
-import hotelHilton.HotelHilton;
-import hotelHilton.HotelHiltonPort;
+import hotelHilton.*;
+import hotelHolidayInn.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -30,13 +30,26 @@ public class DsSys_Assignment2_Client {
 
     }
 
-    private static void callWebServices(String destination) {
-        TXLFlightPort port = new TXLFlight().getTXLFlightBinding();  
-        int price = port.txlFlightcalc(destination);
-        HotelHiltonPort hiltonPort = new HotelHilton().getHotelHiltonBinding();
-        int hiltonPrice = hiltonPort.hotelHiltoncalc(destination);
-        System.out.println(hiltonPrice);
-        Result result = new Result(destination, price, hiltonPrice);
+    private void callWebServices(String destination) {    
+        int price = getPriceOfFlight(destination);
+        int hiltonPrice = getPriceOfHilton(destination);
+        int holidayInnPrice = getPriceOfHolidayInn(destination);
+        Result result = new Result(destination, price, hiltonPrice, holidayInnPrice);
         client.getTextField().setText(result.toString());
+    }
+    
+    private int getPriceOfFlight(String destination){
+        TXLFlightPort port = new TXLFlight().getTXLFlightBinding();  
+        return port.txlFlightcalc(destination);
+    }
+    
+    private int getPriceOfHilton(String destination){
+        HotelHiltonPort hiltonPort = new HotelHilton().getHotelHiltonBinding();
+        return hiltonPort.hotelHiltoncalc(destination);
+    }
+    
+    private int getPriceOfHolidayInn(String destination){
+        HotelHolidayInnPort holidayInnPort = new HotelHolidayInn().getHotelHolidayInnBinding();
+        return holidayInnPort.hotelHolidayInncalc(destination);
     }
 }
