@@ -1,6 +1,8 @@
 package dssys_assignment2_client;
 
 import TXLFlightService.*;
+import hotelHilton.HotelHilton;
+import hotelHilton.HotelHiltonPort;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -8,36 +10,33 @@ import javax.swing.JButton;
 public class DsSys_Assignment2_Client {
 
     private static ClientGUI client;
-    private static JButton textButton;
-    private static String destination = "";
 
     public static void main(String[] args) {
-
-        
-        initializeGUI();
-
+        new DsSys_Assignment2_Client().initializeClient();
     }
 
-    private static void initializeGUI() {
+    private void initializeClient() {
         client = new ClientGUI();
         client.setVisible(true);
 
-        textButton = client.getButton();
+        JButton textButton = client.getButton();
         textButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                destination = client.getDestinationField().getText();
-                doTheRest();
+                String destination = client.getDestinationField().getText();
+                callWebServices(destination);
             }
         });
 
     }
 
-    private static void doTheRest() {
-        System.out.println(destination);
+    private static void callWebServices(String destination) {
         TXLFlightPort port = new TXLFlight().getTXLFlightBinding();  
         int price = port.txlFlightcalc(destination);
-        Result result = new Result(destination, price);
+        HotelHiltonPort hiltonPort = new HotelHilton().getHotelHiltonBinding();
+        int hiltonPrice = hiltonPort.hotelHiltoncalc(destination);
+        System.out.println(hiltonPrice);
+        Result result = new Result(destination, price, hiltonPrice);
         client.getTextField().setText(result.toString());
     }
 }

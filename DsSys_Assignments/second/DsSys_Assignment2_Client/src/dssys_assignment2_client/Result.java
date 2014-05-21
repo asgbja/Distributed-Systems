@@ -11,14 +11,17 @@ public class Result {
 
     private final String destination;    
     private final int price;
+    private final int hiltonPrice;
     
-    public Result(String destination, int price){
+    public Result(String destination, int price, int hiltonPrice){
         this.destination = destination;
         this.price = price;
+        this.hiltonPrice = hiltonPrice;
     }
     
     @Override
     public String toString(){
-        return "Destination: " + destination + "\nCheapest Flight: " + price;
+        return "Destination: " + destination + "\n\nCheapest Flight: " + price +
+                "\n\nPrice in Hilton Hotel: " + hiltonPrice;
     }
 }
