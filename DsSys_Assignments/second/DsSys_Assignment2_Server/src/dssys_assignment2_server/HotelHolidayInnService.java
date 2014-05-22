@@ -16,8 +16,8 @@ public class HotelHolidayInnService {
 
     public HotelHolidayInnService() {
         pricesForDestinantion = new HashMap<>();
-        pricesForDestinantion.put("FRA", -1);
-        pricesForDestinantion.put("MUC", 120);
+        pricesForDestinantion.put("FRA", 1000);
+        pricesForDestinantion.put("MUC", 54);
         pricesForDestinantion.put("STR", 340);
     }
 

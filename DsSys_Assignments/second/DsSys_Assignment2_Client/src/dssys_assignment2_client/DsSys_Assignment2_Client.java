@@ -3,6 +3,8 @@ package dssys_assignment2_client;
 import TXLFlightService.*;
 import hotelHilton.*;
 import hotelHolidayInn.*;
+import hotelMercure.*;
+import carSixt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -34,7 +36,10 @@ public class DsSys_Assignment2_Client {
         int price = getPriceOfFlight(destination);
         int hiltonPrice = getPriceOfHilton(destination);
         int holidayInnPrice = getPriceOfHolidayInn(destination);
-        Result result = new Result(destination, price, hiltonPrice, holidayInnPrice);
+        int mercurePrice = getPriceOfMercure(destination);
+        int carSixtPrice = getPriceOfCarSixt(destination);
+        Result result = new Result(destination, price, hiltonPrice, holidayInnPrice,
+        mercurePrice, carSixtPrice);
         client.getTextField().setText(result.toString());
     }
     
@@ -51,5 +56,15 @@ public class DsSys_Assignment2_Client {
     private int getPriceOfHolidayInn(String destination){
         HotelHolidayInnPort holidayInnPort = new HotelHolidayInn().getHotelHolidayInnBinding();
         return holidayInnPort.hotelHolidayInncalc(destination);
+    }
+    
+    private int getPriceOfMercure(String destination) {
+        HotelMercurePort mercurePort = new  HotelMercure().getHotelMercureBinding();
+        return mercurePort.hotelMercurecalc(destination);
+    }
+    
+    private int getPriceOfCarSixt(String destination){
+        CarSixtPort carSixtPort = new CarSixt().getCarSixtBinding();
+        return carSixtPort.carSixtcalc(destination);
     }
 }
