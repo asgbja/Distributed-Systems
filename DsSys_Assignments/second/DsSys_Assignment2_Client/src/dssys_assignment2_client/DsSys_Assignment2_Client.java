@@ -1,13 +1,10 @@
 package dssys_assignment2_client;
 
-import TXLFlightService.*;
-import hotelHilton.*;
-import hotelHolidayInn.*;
-import hotelMercure.*;
-import carSixt.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import webService.*;
 
 public class DsSys_Assignment2_Client {
 
@@ -33,38 +30,12 @@ public class DsSys_Assignment2_Client {
     }
 
     private void callWebServices(String destination) {    
-        int price = getPriceOfFlight(destination);
-        int hiltonPrice = getPriceOfHilton(destination);
-        int holidayInnPrice = getPriceOfHolidayInn(destination);
-        int mercurePrice = getPriceOfMercure(destination);
-        int carSixtPrice = getPriceOfCarSixt(destination);
-        Result result = new Result(destination, price, hiltonPrice, holidayInnPrice,
-        mercurePrice, carSixtPrice);
-        client.getTextField().setText(result.toString());
+        client.getTextField().setText(getAnswerFromServers(destination));
     }
     
-    private int getPriceOfFlight(String destination){
-        TXLFlightPort port = new TXLFlight().getTXLFlightBinding();  
-        return port.txlFlightcalc(destination);
+    private String getAnswerFromServers(String destination){
+        FlightHotelCarPort port = new FlightHotelCar().getFlightHotelCarBinding();
+        return port.flightHotelCarcalc(destination);
     }
     
-    private int getPriceOfHilton(String destination){
-        HotelHiltonPort hiltonPort = new HotelHilton().getHotelHiltonBinding();
-        return hiltonPort.hotelHiltoncalc(destination);
-    }
-    
-    private int getPriceOfHolidayInn(String destination){
-        HotelHolidayInnPort holidayInnPort = new HotelHolidayInn().getHotelHolidayInnBinding();
-        return holidayInnPort.hotelHolidayInncalc(destination);
-    }
-    
-    private int getPriceOfMercure(String destination) {
-        HotelMercurePort mercurePort = new  HotelMercure().getHotelMercureBinding();
-        return mercurePort.hotelMercurecalc(destination);
-    }
-    
-    private int getPriceOfCarSixt(String destination){
-        CarSixtPort carSixtPort = new CarSixt().getCarSixtBinding();
-        return carSixtPort.carSixtcalc(destination);
-    }
 }
